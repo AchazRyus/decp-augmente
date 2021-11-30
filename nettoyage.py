@@ -356,6 +356,9 @@ def correct_date(df: pd.DataFrame) -> pd.DataFrame:
         - pd.DataFrame
     """
     logger.info("Début du traitement: Correction de la variable dureeMois.")
+
+    df['dureeMois'] = np.where(isinstance(df['dureeMois'], int), int(df['dureeMois']), 0)
+
     # On cherche les éventuelles erreurs mois -> jours
     mask = ((df['montantCalcule'] == df['dureeMois'])
             | (df['montantCalcule'] / (0.01 + df['dureeMois']) < 100)
